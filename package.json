@@ -1,0 +1,32 @@
+{
+  "name": "diszar-template",
+  "version": "0.0.1",
+  "description": "A modular Discord bot template in pure JavaScript, designed for easy setup and customization.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0xNizar/Diszar-Template.git"
+  },
+  "keywords": [
+    "discord",
+    "discord-bot",
+    "discord.js",
+    "discord-bot-template",
+    "discord-template",
+    "discord-template-bot"
+  ],
+  "author": "0xNizar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/0xNizar/Diszar-Template/issues"
+  },
+  "homepage": "https://github.com/0xNizar/Diszar-Template#readme",
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.5"
+  }
+}
