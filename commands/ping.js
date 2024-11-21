@@ -1,12 +1,12 @@
 export default {
     name: "ping",
     description: 'Execute a JavaScript code.',
-    aliases: ['p'],
+    aliases: ['p', 'po'],
     otherOptions: {
         botOwner: false
     },
 
-    run: async (client, message, args) => {
-
+    run: async (client, message) => {
+        message.reply("Pong")
     }
 }
