@@ -1,3 +1,5 @@
+import { PermissionFlagsBits } from "discord.js";
+
 export default {
     name: "supercommand",
     description: 'Here a test command that have everything.',
@@ -30,6 +32,8 @@ export default {
         {name: "user", description: "Select a user", required: true},
         {name: "user2", description: "Select a user2", required: false}
     ],
+
+    defaultMemberPermission: ["Administrator"],
 
     run: async (client, interaction) => {
         
