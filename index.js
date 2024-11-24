@@ -9,10 +9,6 @@ client.slashCommands = new Collection();
 // Load environment variables
 dotenv.config();
 
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-});
-
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 
