@@ -1,5 +1,3 @@
-import { PermissionFlagsBits } from "discord.js";
-
 export default {
     name: "supercommand",
     description: 'Here a test command that have everything.',
