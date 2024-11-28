@@ -19,17 +19,18 @@ export default async (client) => {
 
             client.on('messageCreate', (message) => {
                 const allCommands = getAllCommands(command, Config.Prefix);
+                const args = message.content.split(" ");
 
-                if (!allCommands.includes(message.content) || message.author.id == client.user.id) return;
+                if (!allCommands.includes(args[0]) || message.author.id == client.user.id) return;
 
                 if (command.default.otherOptions?.botOwner) {
                     if (isBotOwner(message)) {
-                        command.default.run(client, message)
+                        command.default.run(client, message, args)
                     } else {
                         message.reply("- You don't have access to this command")
                     }
                 } else {
-                    command.default.run(client, message)
+                    command.default.run(client, message, args)
                 }
             });
         } catch (e) {
