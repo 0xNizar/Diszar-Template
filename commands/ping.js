@@ -1,6 +1,8 @@
 export default {
     name: "ping",
     description: 'Execute a JavaScript code.',
+    usage: "ping",
+    cooldown: 4,
     aliases: ['p', 'po'],
     otherOptions: {
         botOwner: false
