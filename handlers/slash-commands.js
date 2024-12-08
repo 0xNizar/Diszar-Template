@@ -2,9 +2,9 @@ import { SlashCommandBuilder, PermissionFlagsBits } from "discord.js";
 import { readdirSync } from "fs";
 
 export default async (client) => {
-	for (const file of readdirSync("./slash-commands").filter(files => files.endsWith(".js"))) {
+	for (const file of readdirSync("./slashCommands").filter(files => files.endsWith(".js"))) {
 		try {
-			const slashCommand = await import(`../slash-commands/${file}`);
+			const slashCommand = await import(`../slashCommands/${file}`);
 			const Command = new SlashCommandBuilder()
 				.setName(String(slashCommand.default.name).replace(/\s+/g, '_').toLowerCase())
 				.setDescription(String(slashCommand.default.description))
