@@ -1,3 +1,4 @@
+import { Collection } from "discord.js"
 import { readdirSync } from "fs"
 import { Config } from "../config.js";
 
@@ -22,6 +23,31 @@ export default async (client) => {
                 const args = message.content.split(" ");
 
                 if (!allCommands.includes(args[0]) || message.author.id == client.user.id) return;
+
+                const { cooldowns } = client;
+
+                if (!cooldowns.has(command.default.name)) {
+                    cooldowns.set(command.default.name, new Collection());
+                }
+
+                const now = Date.now();
+                const timestamps = cooldowns.get(command.default.name);
+                const cooldownAmount = (command.default.otherOptions.cooldown || 3) * 1000;
+
+                if (timestamps.has(message.author.id)) {
+                    const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+                    if (now < expirationTime && !isBotOwner(message)) {
+                        const timeLeft = (expirationTime - now) / 1000;
+                        return message.reply({
+                            content: `please wait ${timeLeft.toFixed(
+                                1
+                            )} more second(s) before reusing the \`${command.default.name}\` command.`,
+                        });
+                    }
+                }
+                
+                timestamps.set(message.author.id, now);
+                setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
                 if (command.default.otherOptions?.botOwner) {
                     if (isBotOwner(message)) {

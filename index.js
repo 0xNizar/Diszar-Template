@@ -22,6 +22,7 @@ const client = new Client({
 });
 
 client.slashCommands = new Collection();
+client.cooldowns = new Collection();
 
 /**
  * Dynamically load handlers from the 'handlers' directory.
@@ -57,7 +58,6 @@ const registerSlashCommands = async () => {
     console.error("Failed to register slash commands:", error);
   }
 };
-
 
 // Main function
 (async () => {
