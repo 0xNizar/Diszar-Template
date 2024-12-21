@@ -1,7 +1,7 @@
-import { SlashCommandBuilder, PermissionFlagsBits } from "discord.js";
+import { Client, SlashCommandBuilder, PermissionFlagsBits } from "discord.js";
 import { readdirSync } from "fs";
 
-export default async (client) => {
+export default async (client: Client) => {
 	for (const file of readdirSync("./slashCommands").filter(files => files.endsWith(".js"))) {
 		try {
 			const slashCommand = await import(`../slashCommands/${file}`);
@@ -13,9 +13,10 @@ export default async (client) => {
 			// Collect all options (attachments and booleans) into one array
 			let allOptions = [];
 
+			// TODO: options types
 			if (Array.isArray(slashCommand.default.addAttachments)) {
 				allOptions.push(
-					...slashCommand.default.addAttachments.map(option => ({
+					...slashCommand.default.addAttachments.map((option: any) => ({
 						type: 'attachment',
 						...option
 					}))
@@ -24,7 +25,7 @@ export default async (client) => {
 
 			if (Array.isArray(slashCommand.default.addBolean)) {
 				allOptions.push(
-					...slashCommand.default.addBolean.map(option => ({
+					...slashCommand.default.addBolean.map((option: any) => ({
 						type: 'boolean',
 						...option
 					}))
@@ -33,7 +34,7 @@ export default async (client) => {
 
 			if (Array.isArray(slashCommand.default.addChannel)) {
 				allOptions.push(
-					...slashCommand.default.addChannel.map(option => ({
+					...slashCommand.default.addChannel.map((option: any) => ({
 						type: 'channel',
 						...option
 					}))
@@ -42,7 +43,7 @@ export default async (client) => {
 
 			if (Array.isArray(slashCommand.default.addMentionable)) {
 				allOptions.push(
-					...slashCommand.default.addMentionable.map(option => ({
+					...slashCommand.default.addMentionable.map((option: any) => ({
 						type: 'mentionable',
 						...option
 					}))
@@ -51,7 +52,7 @@ export default async (client) => {
 
 			if (Array.isArray(slashCommand.default.addRole)) {
 				allOptions.push(
-					...slashCommand.default.addRole.map(option => ({
+					...slashCommand.default.addRole.map((option: any) => ({
 						type: 'role',
 						...option
 					}))
@@ -60,7 +61,7 @@ export default async (client) => {
 
 			if (Array.isArray(slashCommand.default.addString)) {
 				allOptions.push(
-					...slashCommand.default.addString.map(option => ({
+					...slashCommand.default.addString.map((option: any) => ({
 						type: 'string',
 						...option
 					}))
@@ -69,7 +70,7 @@ export default async (client) => {
 
 			if (Array.isArray(slashCommand.default.addUser)) {
 				allOptions.push(
-					...slashCommand.default.addUser.map(option => ({
+					...slashCommand.default.addUser.map((option: any) => ({
 						type: 'user',
 						...option
 					}))
@@ -145,16 +146,15 @@ export default async (client) => {
 
 			if (Array.isArray(slashCommand.default.defaultMemberPermission)) {
 				const combinedPermissions = slashCommand.default.defaultMemberPermission.reduce(
-					(acc, perm) => acc | BigInt(PermissionFlagsBits[perm]),
+					(acc: bigint, perm: string) => acc | BigInt(PermissionFlagsBits[perm as keyof typeof PermissionFlagsBits]), // Type assertion
 					BigInt(0)
 				);
 				Command.setDefaultMemberPermissions(combinedPermissions);
 			} else if (slashCommand.default.defaultMemberPermission) {
-				Command.setDefaultMemberPermissions(BigInt(PermissionFlagsBits[slashCommand.default.defaultMemberPermission]));
+				Command.setDefaultMemberPermissions(BigInt(PermissionFlagsBits[slashCommand.default.defaultMemberPermission as keyof typeof PermissionFlagsBits]));
 			} else {
 				Command.setDefaultMemberPermissions(null);
 			}
-
 
 			// Register the command
 			client.slashCommands.set(slashCommand.default.name, Command.toJSON());

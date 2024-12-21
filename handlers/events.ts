@@ -1,6 +1,7 @@
 import { readdirSync } from "fs";
+import { Client } from 'discord.js';
 
-export default async (client) => {
+export default async (client: Client) => {
     for (const dir of readdirSync("./events")) {
         for (const file of readdirSync(`./events/${dir}`).filter(files => files.endsWith(".js"))) {
             try {

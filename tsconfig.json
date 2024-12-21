@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",       // Output folder for compiled files
+    "rootDir": "./",          // Input folder for TypeScript files (root directory)
+    "strict": true,           // Enable strict type-checking options
+    "module": "commonjs",     // Module system to use
+    "target": "es2020",       // Change target to ES2020 for BigInt support
+    "esModuleInterop": true   // Enable compatibility with CommonJS and ES modules
+  },
+  "include": [
+    "./**/*.ts"               // Include all .ts files in the root directory and subdirectories
+  ],
+  "exclude": [
+    "dist"                    // Exclude the dist folder
+  ]
+}

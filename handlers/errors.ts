@@ -1,4 +1,6 @@
-export default (client) => {
+import { Client } from 'discord.js';
+
+export default (client: Client) => {
     client.on("error", (error) => {
         console.error("Client Error:", error);
     });

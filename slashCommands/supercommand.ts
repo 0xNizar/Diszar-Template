@@ -1,3 +1,5 @@
+import { Client, CommandInteraction } from 'discord.js';
+
 export default {
     name: "supercommand",
     description: 'Here a test command that have everything.',
@@ -33,7 +35,7 @@ export default {
 
     defaultMemberPermission: ["Administrator"],
 
-    run: async (client, interaction) => {
-        
+    run: async (client: Client, interaction: CommandInteraction) => {
+        await interaction.reply({ content: "Super command!" });
     }
 }

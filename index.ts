@@ -1,5 +1,5 @@
 import { Client, GatewayIntentBits, Collection, REST, Routes } from "discord.js";
-import { Logging } from "./functions/logging.js";
+import { Logging } from "./functions/logging";
 import { readdirSync } from "fs";
 import dotenv from "dotenv";
 
@@ -41,12 +41,12 @@ const loadHandlers = async () => {
         Logger.warning(`Handler '${file}' does not export a default function.`);
       }
     } catch (error) {
-      Logger.error(`Failed to load handler '${file}':`, error);
+      Logger.error(`Failed to load handler '${file}': ${error}`);
     }
   }
 };
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Register slash commands with Discord's API.
@@ -58,7 +58,7 @@ const registerSlashCommands = async () => {
     await rest.put(Routes.applicationCommands(client_id), { body: client.slashCommands });
     Logger.success("Successfully reloaded application (/) commands.");
   } catch (error) {
-    Logger.error("Failed to register slash commands:", error);
+    Logger.error(`Failed to register slash commands: ${error}`);
   }
 };
 
@@ -71,7 +71,9 @@ const registerSlashCommands = async () => {
     await registerSlashCommands();
     await client.login(token);
   } catch (error) {
-    Logger.error("Error during client startup:", error);
+    Logger.error(`Error during client startup: ${error}`);
     process.exit(1);
   }
 })();
+
+export default client;

@@ -1,21 +1,22 @@
-import { Collection } from "discord.js"
+import { Client, Collection, Message } from "discord.js"
 import { readdirSync } from "fs"
-import { Config } from "../config.js";
+import { Config } from "../config";
 
-export default async (client) => {
+export default async (client: Client) => {
     for (const dir of readdirSync("./commands")) {
         for (const file of readdirSync(`./commands/${dir}`).filter(files => files.endsWith(".js"))) {
             try {
                 const command = await import(`../commands/${dir}/${file}`);
     
-                const getAllCommands = (command, Prefix) => {
+                // TODO: command type
+                const getAllCommands = (command: any, Prefix: string) => {
                     return [
                         `${Prefix}${command.default.name}`,
-                        ...command.default.aliases.map(alias => `${Prefix}${alias}`)
+                        ...command.default.aliases.map((alias: string) => `${Prefix}${alias}`)
                     ];
                 };
     
-                const isBotOwner = (message) => {
+                const isBotOwner = (message: Message) => {
                     return message.author.id === process.env.owner_id;
                 };
     
@@ -23,6 +24,8 @@ export default async (client) => {
                     const allCommands = getAllCommands(command, Config.Prefix);
                     const args = message.content.split(" ");
     
+                    // TEST
+                    if (!client.user || message.author.id === client.user.id || !allCommands.includes(args[0])) return;
                     if (!allCommands.includes(args[0]) || message.author.id == client.user.id) return;
     
                     const { cooldowns } = client;

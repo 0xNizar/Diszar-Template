@@ -1,3 +1,5 @@
+import { Client, Message } from "discord.js"; 
+
 export default {
     name: "ping",
     description: 'Execute a JavaScript code.',
@@ -9,7 +11,7 @@ export default {
         cooldown: 4,
     },
 
-    run: async (client, message, args) => {
+    run: async (client: Client, message: Message, args: []) => {
         message.reply("Pong")
     }
 }
