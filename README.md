@@ -1,10 +1,10 @@
-# Discord.js Bot Template (ES6)
+# Discord.js Bot Template (TypeScript)
 
-This is a template for creating a **Discord Bots** using the **discord.js** library with **ES6** features. It's designed to be a starting point for building your own Discord bots while taking advantage of modern JavaScript features like async/await, import/export modules, and more.
+This is a template for creating **Discord Bots** using the **discord.js** library with **TypeScript**. It's designed to be a starting point for building your own Discord bots while taking advantage of modern TypeScript features like type safety, async/await, and more.
 
 ## Features
 
-- Uses **ES6 Modules** (`import`/`export`).
+- Uses **TypeScript** for better type checking and development experience.
 - Built with **discord.js v14+**.
 - Supports multiple command handlers.
 - Easy-to-extend structure.
@@ -20,4 +20,11 @@ Before getting started, make sure you have the following installed:
 - **Discord Developer Account** - [Create an application here](https://discord.com/developers/applications)
 
 ## Setup
-`Soon...`
+
+### 1. **Install Dependencies**
+
+Start by initializing a new project and installing the required dependencies:
+
+```bash
+npm install discord.js @types/node typescript ts-node
+```
